@@ -136,7 +136,6 @@ netlify deploy --prod
 
 | Action | How |
 |---|---|
-| **Login** | `/admin/login` with your `ADMIN_USERNAME` / `ADMIN_PASSWORD` |
 | **Add item** | Click **Add Item**, fill the form, upload an image, save |
 | **Edit item** | Click the ✏️ pencil icon on any row |
 | **Delete item** | Click the 🗑️ trash icon — confirms before deleting, removes image from storage too |
