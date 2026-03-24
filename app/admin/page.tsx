@@ -10,6 +10,12 @@ export default async function AdminPage() {
     redirect('/admin/login');
   }
 
+  // Add null check here
+  if (!supabaseAdmin) {
+    console.error('Supabase admin client not initialized');
+    return <div>Configuration error. Please check server logs.</div>;
+  }
+
   const { data: items, error } = await supabaseAdmin
     .from('bakery_items')
     .select('*')
