@@ -90,19 +90,6 @@ Copy `.env.example` to `.env.local` and fill in the values:
 cp .env.example .env.local
 ```
 
-```env
-# From Supabase → Settings → API
-NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...
-
-# Admin login credentials (you choose these)
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=your_secure_password_here
-
-# Random secret string — used to sign the session cookie
-# Generate one: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-NEXTAUTH_SECRET=your_random_64_char_hex_string
 ```
 
 > ⚠️ **Never commit `.env.local` to git.** The `.env.example` file is safe to commit.
