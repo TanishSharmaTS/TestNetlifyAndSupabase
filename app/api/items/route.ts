@@ -13,6 +13,11 @@ async function authGuard(): Promise<NextResponse | undefined> {
 }
 
 async function uploadImage(file: File): Promise<string> {
+  // Add this null check at the beginning
+  if (!supabaseAdmin) {
+    throw new Error('Supabase admin client not initialized');
+  }
+  
   const ext = file.name.split('.').pop() || 'jpg';
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   const bytes = await file.arrayBuffer();
@@ -30,8 +35,10 @@ async function uploadImage(file: File): Promise<string> {
   const { data } = supabaseAdmin.storage.from(BUCKET).getPublicUrl(filename);
   return data.publicUrl;
 }
-
 async function deleteImage(imageUrl: string) {
+  // Add this null check at the beginning
+  if (!supabaseAdmin) return;
+  
   try {
     // Extract filename from full URL
     const parts = imageUrl.split(`/${BUCKET}/`);
@@ -183,8 +190,7 @@ export async function PATCH(req: NextRequest) {
 
     return NextResponse.json({ item: data });
   } catch (err: any) {
-    console.error('/api/items PATCH error:', err);
-    return NextResponse.json({ error: err?.message || 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
 
@@ -219,7 +225,6 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch (err: any) {
-    console.error('/api/items DELETE error:', err);
-    return NextResponse.json({ error: err?.message || 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

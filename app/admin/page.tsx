@@ -10,7 +10,7 @@ export default async function AdminPage() {
     redirect('/admin/login');
   }
 
-  // Add null check here
+  // Add this null check
   if (!supabaseAdmin) {
     console.error('Supabase admin client not initialized');
     return <div>Configuration error. Please check server logs.</div>;
